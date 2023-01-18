@@ -3,6 +3,7 @@
 ___
 
 1. Create User
+
    **Request**
    Url - `/api/users`
 
@@ -108,6 +109,32 @@ ___
        "created_at": "timestamp",
        "updated_at": "timestamp",
        "auth_token": "string"
+     }
+   }
+   ```
+
+4. Wallet Details
+
+   **Request**
+   Url - `/api/wallets`
+
+   Method - `GET`
+
+   Headers - `{Authorization: 'Bearer <token>'}`
+
+   **Response**
+
+   Status - `200 - OK`
+
+   body
+
+   ```json
+   {
+     "data": {
+       "user_id": "string",
+       "settled_balance": "string",
+       "status": "string",
+       "recent_transactions": []
      }
    }
    ```

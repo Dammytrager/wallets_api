@@ -20,8 +20,20 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_one :wallet
+
+  after_save :create_wallet, if: Proc.new { |user| user.wallet.blank? }
+
   def generate_token
     token = TokenService.encode({ id: id })
     update!(auth_token: token)
   end
 end
+
+# User.create(first_name: 'Peter', last_name: 'John')
+#
+# user = User.new
+# user.first_name = 'Peter'
+# user.last_name = 'John'
+#
+# user.save
