@@ -38,4 +38,19 @@ class Wallet < ApplicationRecord
 
     self.status = :status_active
   end
+
+  def create_credit_transaction(amount, source: nil, status: :pending, save: true, skip_source: false)
+    transaction = Transaction.new(
+      amount: amount,
+      source: source,
+      destination: self,
+      txn_type: :type_credit,
+      status: status,
+      skip_source: skip_source
+    )
+
+    transaction.save! if save
+
+    transaction
+  end
 end

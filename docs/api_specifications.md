@@ -139,4 +139,156 @@ ___
    }
    ```
 
+5. Create Debit Cards
+
+   **Request**
+   Url - `/api/debit_cards`
+
+   Method - `POST`
+
+   Headers - `{Authorization: 'Bearer <token>'}`
+
+   body
+
+   ```json
+   {
+     "cvv": "string",
+     "number": "string",
+     "expiry_month": "string",
+     "expiry_year": "string"
+   }
+   ```
+
+
+
+**Response**
+
+Status - `200 - OK`
+
+body
+
+   ```json
+   // When charged
+   {
+     "message": "debit card added successfully",
+     "data": {
+       "id": "string", 		
+       "last4": "string", 
+       "exp_month": "string", 
+       "exp_year": "string", 
+       "card_type": "string", 
+       "bank": "string", 
+       "user_id": "string", 
+       "created_at": "string", 
+       "updated_at": "string"
+     }
+   }
+   
+   // When Pin is required
+   {
+       "reference": "guiajjfxvpx9vwd",
+       "status": "send_pin"
+   }
+   
+   // When Otp is required
+   {
+       "reference": "guiajjfxvpx9vwd",
+       "status": "send_otp"
+   }
+   ```
+
+6. Send Pin
+
+   **Request**
+   Url - `/api/debit_cards`/send_pin
+
+   Method - `POST`
+
+   Headers - `{Authorization: 'Bearer <token>'}`
+
+   body
+
+   ```json
+   {
+     "reference": "string",
+      "pin": "string"
+   }
+   ```
+
+
+
+**Response**
+
+Status - `200 - OK`
+
+body
+
+   ```json
+   // When charged
+   {
+     "message": "debit card added successfully",
+     "data": {
+       "id": "string", 		
+       "last4": "string", 
+       "exp_month": "string", 
+       "exp_year": "string", 
+       "card_type": "string", 
+       "bank": "string", 
+       "user_id": "string", 
+       "created_at": "string", 
+       "updated_at": "string"
+     }
+   }
+   
+   // When Otp is required
+   {
+       "reference": "guiajjfxvpx9vwd",
+       "status": "send_otp"
+   }
+   ```
+
+7. Send OTP
+
+   **Request**
+   Url - `/api/debit_cards`/send_pin
+
+   Method - `POST`
+
+   Headers - `{Authorization: 'Bearer <token>'}`
+
+   body
+
+   ```json
+   {
+     "reference": "string",
+     "otp": "string"
+   }
+   ```
+
+
+
+**Response**
+
+Status - `200 - OK`
+
+body
+
+   ```json
+   // When charged
+   {
+     "message": "debit card added successfully",
+     "data": {
+       "id": "string", 		
+       "last4": "string", 
+       "exp_month": "string", 
+       "exp_year": "string", 
+       "card_type": "string", 
+       "bank": "string", 
+       "user_id": "string", 
+       "created_at": "string", 
+       "updated_at": "string"
+     }
+   }
+   ```
+
    

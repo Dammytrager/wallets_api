@@ -18,14 +18,14 @@ class Transaction < ApplicationRecord
   belongs_to :source, polymorphic: true
   belongs_to :destination, polymorphic: true
 
-  validates :source_id, :source_type, presence: true
-  # validates :destination_id, :destination_type, presence: true
+  attr_accessor :skip_source, :skip_destination
+
+  validates :source_id, :source_type, presence: true, if: -> { !skip_source }
+  validates :destination_id, :destination_type, presence: true, if: -> { !skip_destination }
   validates :txn_ref, presence: true
   validates :txn_ref, uniqueness: true
 
   before_validation :check_txn_ref
-
-  delegate :user, to: :source
 
   enum txn_type: {
     type_credit: 0,
@@ -38,6 +38,11 @@ class Transaction < ApplicationRecord
     cancelled: 2,
   }
 
+  def user
+    return source&.user if source.present?
+    return destination&.user
+  end
+
   def check_txn_ref
     return if txn_ref.present?
 
@@ -49,12 +54,3 @@ class Transaction < ApplicationRecord
     end
   end
 end
-
-{
-  card: {
-    cvv:"081",
-    number:"507850785078507812",
-    expiry_month:"01",
-    expiry_year:"24"
-  }
-}

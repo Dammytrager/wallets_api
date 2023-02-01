@@ -31,6 +31,16 @@ class ApiController < ActionController::Base
       'status is missing'
     elsif message.match?(/empty: name/)
       'name is missing'
+    elsif message.match?(/empty: cvv/)
+      'cvv is missing'
+    elsif message.match?(/empty: number/)
+      'number is missing'
+    elsif message.match?(/empty: expiry_month/)
+      'expiry_month is missing'
+    elsif message.match?(/empty: expiry_year/)
+      'expiry_year is missing'
+    else
+      'Missing parameter'
     end
   end
 

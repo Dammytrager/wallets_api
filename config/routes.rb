@@ -5,5 +5,9 @@ Rails.application.routes.draw do
     resource :sessions, only: [:create]
     resource :users, only: [:create, :update]
     resource :wallet, only: [:show]
+    resource :debit_cards, only: [:create, :destroy] do
+      post :send_pin
+      post :send_otp
+    end
   end
 end
