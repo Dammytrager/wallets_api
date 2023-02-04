@@ -30,7 +30,9 @@ class Wallet < ApplicationRecord
   }
 
   def api_output
-    JSON(self.to_json).merge({recent_transactions: self.transactions.limit(10)})
+    JSON(self.to_json)
+      .merge({ recent_transactions: self.transactions.limit(10) })
+      .merge({ debit_cards: self.user.debit_cards&.map(&:api_output) || [] })
   end
 
   def check_status

@@ -1,4 +1,6 @@
 class Api::DebitCardsController < ApiController
+  include Api::DebitCards
+
   before_action :authenticate
   before_action :set_wallet
 
@@ -9,21 +11,10 @@ class Api::DebitCardsController < ApiController
     parse_paystack_response(response)
   end
 
-  def send_pin
-    response = PaystackService::DebitCard.submit_pin(
-      transaction_ref: params.require(:reference), pin: params.require(:pin)
-    )
-    parse_paystack_response(response)
-  end
-
-  def send_otp
-    response = PaystackService::DebitCard.submit_otp(
-      transaction_ref: params.require(:reference), otp: params.require(:otp)
-    )
-    parse_paystack_response(response)
-  end
-
   def destroy
+    debit_card = @user.debit_cards.find(params.require(:debit_card_id))
+    debit_card&.destroy
+    render json: { message: 'debit card deleted successfully' }
   end
 
   def card_params
@@ -57,7 +48,7 @@ class Api::DebitCardsController < ApiController
 
       return render json: {
         message: 'Debit Card Created Successfully',
-        data: JSON(debit_card.to_json).except('authorization_code')
+        data: debit_card.api_output
       }, status: :ok
     else
       return render json: response['data']

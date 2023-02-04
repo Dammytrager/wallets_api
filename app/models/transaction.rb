@@ -48,7 +48,7 @@ class Transaction < ApplicationRecord
 
     loop do
       ref = SecureRandom.hex(10)
-      next if Transaction.find_by(txn_ref: ref).any?
+      next if Transaction.where(txn_ref: ref).any?
 
       break self.txn_ref = ref
     end

@@ -30,11 +30,3 @@ class User < ApplicationRecord
     update!(auth_token: token)
   end
 end
-
-# User.create(first_name: 'Peter', last_name: 'John')
-#
-# user = User.new
-# user.first_name = 'Peter'
-# user.last_name = 'John'
-#
-# user.save

@@ -3,8 +3,9 @@ class PaystackService::DebitCard
   base_uri 'https://api.paystack.co'
 
   def self.headers
+    secret_key = '' # your paystack secret key
     {
-      'Authorization' => 'Bearer sk_test_5fd0d1d2c4d26883b937b31b7823fceef82b55e1',
+      'Authorization' => "Bearer #{secret_key}",
       'Content-Type' => 'application/json'
     }
   end
