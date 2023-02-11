@@ -13,5 +13,9 @@ Rails.application.routes.draw do
       post :send_pin
       post :send_otp
     end
+    resources :banks, only: [:index]
+    resource :bank_account, only: [] do
+      post :verify
+    end
   end
 end

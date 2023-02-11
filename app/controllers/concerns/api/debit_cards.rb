@@ -1,5 +1,5 @@
 module Api::DebitCards
-  include ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
   def send_pin
     response = PaystackService::DebitCard.submit_pin(
