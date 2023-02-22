@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post :credit
       post :send_pin, path: '/credit/send_pin'
       post :send_otp, path: '/credit/send_otp'
+      post :transfer
     end
     resource :debit_cards, only: [:create, :destroy] do
       post :send_pin
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
     resources :banks, only: [:index]
     resource :bank_account, only: [] do
       post :verify
+    end
+    resource :callback, only: [] do
+      post :paystack
     end
   end
 end

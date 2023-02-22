@@ -55,4 +55,14 @@ class Wallet < ApplicationRecord
 
     transaction
   end
+
+  def create_debit_transaction(amount, status: :pending, destination: nil)
+    Transaction.create!(
+      amount: amount,
+      source: self,
+      destination: destination,
+      txn_type: :type_debit,
+      status: status,
+    )
+  end
 end
